@@ -41,7 +41,7 @@
     "typescript": "^3.5.2"
   },
   "scripts": {
-    "start": "tsc & node dist/server.js",
+    "start": "tsc && node dist/server.js",
     "test": "jest"
   },
   "repository": {
