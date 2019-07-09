@@ -1,22 +1,28 @@
 import mongoose, { Document, Schema } from "mongoose";
 
 export interface IUser extends Document {
-  id: string;
-  password: string;
+  _id: Schema.Types.ObjectId;
   age: number;
-  _id: string;
+  email: string;
+  password: string;
+  privilege: number;
+  profileImageUrl: string;
 }
 
 export interface IUserForClient extends Document {
-  id: string;
-  age: number;
-  _id: string;
+  _id: IUser["_id"];
+  age: IUser["age"];
+  email: IUser["email"];
+  privilege: IUser["privilege"];
+  profileImageUrl: IUser["profileImageUrl"];
 }
 
 const UserScheme: Schema = new Schema({
   age: { type: Number, required: true},
-  id: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  privilege: { type: Number, required: true },
+  profileImageUrl: { type: String },
 });
 
 export default mongoose.model<IUser>("User", UserScheme);
