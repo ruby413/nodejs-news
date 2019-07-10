@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IUser extends Document {
   _id: Schema.Types.ObjectId;
@@ -7,14 +7,15 @@ export interface IUser extends Document {
   password: string;
   privilege: number;
   profileImageUrl: string;
+  signUpDate: Date;
 }
 
 export interface IUserForClient extends Document {
-  _id: IUser["_id"];
-  age: IUser["age"];
-  email: IUser["email"];
-  privilege: IUser["privilege"];
-  profileImageUrl: IUser["profileImageUrl"];
+  _id: IUser['_id'];
+  age: IUser['age'];
+  email: IUser['email'];
+  privilege: IUser['privilege'];
+  profileImageUrl: IUser['profileImageUrl'];
 }
 
 const UserScheme: Schema = new Schema({
@@ -23,6 +24,7 @@ const UserScheme: Schema = new Schema({
   password: { type: String, required: true },
   privilege: { type: Number, required: true },
   profileImageUrl: { type: String },
+  signUpDate: { type: Date, required: true },
 });
 
-export default mongoose.model<IUser>("User", UserScheme);
+export default mongoose.model<IUser>('User', UserScheme);

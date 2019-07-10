@@ -1,10 +1,10 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Document, Schema } from 'mongoose';
 import { IUser } from './user.model';
 
 export interface ISubscription extends Document {
   _id: string;
-  followId: IUser["_id"];
-  userId: IUser["_id"];
+  followId: IUser['_id'];
+  userId: IUser['_id'];
 }
 
 const subscriptionSchema: Schema = new Schema({
@@ -12,4 +12,4 @@ const subscriptionSchema: Schema = new Schema({
   userId: { type: Schema.Types.ObjectId, required: true },
 });
 
-export default mongoose.model<ISubscription>("User", subscriptionSchema);
+export default mongoose.model<ISubscription>('User', subscriptionSchema);

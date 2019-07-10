@@ -1,26 +1,25 @@
-import User, { IUser, IUserForClient } from "../models/user.model";
-import { removeNullFields } from "../util/fieldset";
+import User, { IUser, IUserForClient } from '../models/user.model';
+import { removeNullFields } from '../util/fieldset';
+import UserPrivilege from '../util/userprivilege';
 
 interface ICreateUserInput {
-  age: IUser["age"];
-  id: IUser["id"];
-  password: IUser["password"];
-}
-
-interface IGetUserInput {
-  _id: IUser["_id"];
+  age: IUser['age'];
+  email: IUser['email'];
+  password: IUser['password'];
 }
 
 async function CreateUser({
   age,
-  id,
+  email,
   password,
 }: ICreateUserInput): Promise<IUser> {
   try {
     const data: IUser = await User.create({
       age,
-      id,
+      email,
       password,
+      privilege: UserPrivilege.user,
+      signUpDate: new Date(),
     });
     return data;
   } catch (error) {
@@ -30,7 +29,7 @@ async function CreateUser({
 
 async function GetUserByObjectId({
   _id,
-}: IGetUserInput): Promise<IUserForClient[]> {
+}): Promise<IUserForClient[]> {
   try {
     const user: IUserForClient[] = await User.find({ _id });
     return user;
@@ -41,7 +40,7 @@ async function GetUserByObjectId({
 
 async function DeleteUserByObjectId({
   _id,
-}: IGetUserInput): Promise<{}> {
+}): Promise<{}> {
   try {
     const result: {} = await User.deleteOne({ _id });
     return result;
@@ -53,11 +52,12 @@ async function DeleteUserByObjectId({
 async function PutUserByObjectId({
   _id,
   age,
-  id,
+  email,
   password,
+  privilege,
 }): Promise<IUser> {
   try {
-    const result: IUser = await User.update({ _id }, removeNullFields({age, id, password}));
+    const result: IUser = await User.update({ _id }, removeNullFields({age, email, password, privilege}));
     return result;
   } catch (error) {
     throw error;
