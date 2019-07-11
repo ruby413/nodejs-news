@@ -53,12 +53,27 @@ userRouter.put('/:id', async (req: Request, res: Response, next) => {
       email: req.body.email,
       password: req.body.password,
       privilege: req.body.privilege,
+      profileImageUrl: req.body.profileImageUrl,
     });
 
     return res.send({ user });
   } catch (error) {
     createError(500);
     next(error);
+  }
+});
+
+userRouter.patch('/ban/:id', async (req: Request, res: Response, next) => {
+  try {
+    const result = UserController.banUser({
+      _id: req.params.id,
+      isTemporarily: req.body.isTemporarily,
+      hours: req.body.hours,
+    });
+
+    return res.send({ result });
+  } catch (error) {
+    next(createError(500));
   }
 });
 

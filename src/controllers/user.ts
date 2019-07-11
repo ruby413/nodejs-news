@@ -1,11 +1,12 @@
 import User, { IUser, IUserForClient } from '../models/user.model';
+import { addHours } from '../util/datehelper';
+import { UserPrivilege, UserStatus } from '../types/enums';
 import { removeNullFields } from '../util/fieldset';
-import UserPrivilege from '../util/userprivilege';
 
 interface ICreateUserInput {
-  age: IUser['age'];
-  email: IUser['email'];
-  password: IUser['password'];
+  age      : IUser['age'];
+  email    : IUser['email'];
+  password : IUser['password'];
 }
 
 async function CreateUser({
@@ -18,9 +19,10 @@ async function CreateUser({
       age,
       email,
       password,
-      privilege: UserPrivilege.user,
+      privilege: UserPrivilege.USER,
       signUpDate: new Date(),
-    });
+      status: UserStatus.NORMAL,
+});
     return data;
   } catch (error) {
     throw error;
@@ -29,9 +31,9 @@ async function CreateUser({
 
 async function GetUserByObjectId({
   _id,
-}): Promise<IUserForClient[]> {
+}): Promise<IUserForClient> {
   try {
-    const user: IUserForClient[] = await User.find({ _id });
+    const user: IUserForClient = await User.findById({ _id });
     return user;
   } catch (error) {
     throw error;
@@ -55,18 +57,43 @@ async function PutUserByObjectId({
   email,
   password,
   privilege,
+  profileImageUrl,
 }): Promise<IUser> {
   try {
-    const result: IUser = await User.update({ _id }, removeNullFields({age, email, password, privilege}));
+    const result = await User.updateOne({ _id }, removeNullFields({age, email, password, privilege, profileImageUrl}));
     return result;
   } catch (error) {
     throw error;
   }
 }
 
+async function banUser({
+  _id,
+  isTemporarily,
+  hours,
+}) {
+  try {
+    const modifyFieldSet = isTemporarily ? {
+      status: UserStatus.BANNED_TEMPORARILY,
+      bannedExpires: addHours(hours),
+    } : {
+      status: UserStatus.BANNED_FOREVER,
+    };
+    const result = await User.updateOne(
+      { _id },
+      modifyFieldSet,
+    );
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+} 
+
 export default {
   CreateUser,
   DeleteUserByObjectId,
   GetUserByObjectId,
   PutUserByObjectId,
+  banUser,
 };
