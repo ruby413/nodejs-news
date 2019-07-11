@@ -2,7 +2,7 @@ export enum UserPrivilege {
   USER = 0,
   WRITER,
   ADMIN,
-};
+}
 
 export enum UserStatus {
   NORMAL = 0,

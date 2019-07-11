@@ -1,11 +1,11 @@
-import { Request, Response, Router } from "express";
-import createError from "http-errors";
+import { Request, Response, Router } from 'express';
+import createError from 'http-errors';
 
 const homeRouter = Router();
 
-homeRouter.get("/", async (req: Request, res: Response, next) => {
+homeRouter.get('/', async (req: Request, res: Response, next) => {
   try {
-    return res.render("index");
+    return res.render('index');
   } catch (error) {
     createError(500);
     next(error);

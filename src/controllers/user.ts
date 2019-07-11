@@ -88,7 +88,7 @@ async function banUser({
   } catch (error) {
     throw error;
   }
-} 
+}
 
 export default {
   CreateUser,

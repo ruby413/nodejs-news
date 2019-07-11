@@ -9,7 +9,7 @@ export interface IUser extends Document {
   profileImageUrl : string;
   signUpDate      : Date;
   status          : number;
-  bannedExpires   : Date; 
+  bannedExpires   : Date;
 }
 
 export interface IUserForClient extends Document {

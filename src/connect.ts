@@ -1,10 +1,10 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-type TInput = {
-  db: string;
+interface IDBConfig {
+  db : string;
 }
-export default ({db}: TInput) => {
-  
+
+export default ({db}: IDBConfig) => {
   const connect = () => {
     mongoose
       .connect(
@@ -15,7 +15,7 @@ export default ({db}: TInput) => {
         return console.info(`Successfully connected to ${db}`);
       })
       .catch(error => {
-        console.error("Error connecting to database: ", error);
+        console.error('Error connecting to database: ', error);
         return process.exit(1);
       });
   };
