@@ -30,8 +30,7 @@ authRouter.post('/signup', isNotLoggedIn,  async (req: Request, res: Response, n
   }
 });
 
-// authRouter.post('/signin', isNotLoggedIn, async (req: Request, res: Response, next: NextFunction) => {
-authRouter.post('/signin', async (req: Request, res: Response, next: NextFunction) => {
+authRouter.post('/signin', isNotLoggedIn, async (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate('local', (authError, user, info) => {
     if (authError) {
       return next(authError);

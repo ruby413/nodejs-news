@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster&display=swap');
+
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  border-bottom: 1px solid black;
+  background-color: white;
+  margin-bottom: 5px;
+}
+
+.logo {
+  font-family: 'Lobster', cursive;
+  font-size: 35px;
+  padding: 5px;
+}
+
+.container {
+  width: 80%;
+  height: 2000px;
+  margin: auto;
+  border: 1px solid black;
+}
+
+#signin-form form {
+  width: 300px;
+}
