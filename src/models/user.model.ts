@@ -1,4 +1,5 @@
 import mongoose, { Document, Schema } from 'mongoose';
+import bcrypt from 'bcrypt';
 
 export interface IUser extends Document {
   _id             : Schema.Types.ObjectId;
@@ -20,7 +21,7 @@ export interface IUserForClient extends Document {
   profileImageUrl : IUser['profileImageUrl'];
 }
 
-const UserScheme: Schema = new Schema({
+const UserSchema: Schema = new Schema({
   age             : { type: Number, required: true},
   email           : { type: String, required: true, unique: true },
   password        : { type: String, required: true },
@@ -31,4 +32,13 @@ const UserScheme: Schema = new Schema({
   bannedExpires   : { type: Date },
 });
 
-export default mongoose.model<IUser>('User', UserScheme);
+const comparePassword = function (candidatePassword, cb) {
+  bcrypt.compare(candidatePassword, this.password, (err: mongoose.Error, isMatch: boolean) => {
+    cb(err, isMatch);
+  });
+};
+
+UserSchema.methods.comparePassword = comparePassword;
+
+
+export default mongoose.model<IUser>('User', UserSchema);

@@ -40,6 +40,15 @@ async function GetUserByObjectId({
   }
 }
 
+async function GetUserByQuery(query): Promise<IUserForClient> {
+  try {
+    const user: IUserForClient = await User.findOne(query);
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function DeleteUserByObjectId({
   _id,
 }): Promise<{}> {
@@ -94,6 +103,7 @@ export default {
   CreateUser,
   DeleteUserByObjectId,
   GetUserByObjectId,
+  GetUserByQuery,
   PutUserByObjectId,
   banUser,
 };

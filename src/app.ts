@@ -1,6 +1,7 @@
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import session from 'express-session';
+import flash from 'connect-flash';
 import createError from 'http-errors';
 import mongo from 'connect-mongo';
 import passport from 'passport';
@@ -11,11 +12,14 @@ import { MONGODB_URI, SESSION_SECRET } from './util/secrets';
 
 import homeRouter from './routes/home';
 import userRouter from './routes/user';
+import authRouter from './routes/auth';
+import { passportConfig } from './config/passport';
 
 const MongoStore = mongo(session);
 const mongoUrl = MONGODB_URI;
 
 connect({db: mongoUrl});
+passportConfig(passport);
 
 const app = express();
 
@@ -23,6 +27,7 @@ app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'pug');
 
 app.use(logger('dev'));
+app.use(flash());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(session({
@@ -41,6 +46,7 @@ app.use(express.static(path.join(__dirname, '../src/public')));
 
 app.use('/', homeRouter);
 app.use('/user', userRouter);
+app.use('/auth', authRouter);
 
 app.use((req, res, next) => {
   next(createError(404));
