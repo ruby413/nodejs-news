@@ -4,19 +4,16 @@ import { UserPrivilege, UserStatus } from '../types/enums';
 import { removeNullFields } from '../util/fieldset';
 
 interface ICreateUserInput {
-  age      : IUser['age'];
   email    : IUser['email'];
   password : IUser['password'];
 }
 
 async function CreateUser({
-  age,
   email,
   password,
 }: ICreateUserInput): Promise<IUser> {
   try {
     const data: IUser = await User.create({
-      age,
       email,
       password,
       privilege: UserPrivilege.USER,
@@ -62,14 +59,13 @@ async function DeleteUserByObjectId({
 
 async function PutUserByObjectId({
   _id,
-  age,
   email,
   password,
   privilege,
   profileImageUrl,
 }): Promise<IUser> {
   try {
-    const result = await User.updateOne({ _id }, removeNullFields({age, email, password, privilege, profileImageUrl}));
+    const result = await User.updateOne({ _id }, removeNullFields({email, password, privilege, profileImageUrl}));
     return result;
   } catch (error) {
     throw error;

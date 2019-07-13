@@ -3,7 +3,6 @@ import bcrypt from 'bcrypt';
 
 export interface IUser extends Document {
   _id             : Schema.Types.ObjectId;
-  age             : number;
   email           : string;
   password        : string;
   privilege       : number;
@@ -15,14 +14,12 @@ export interface IUser extends Document {
 
 export interface IUserForClient extends Document {
   _id             : IUser['_id'];
-  age             : IUser['age'];
   email           : IUser['email'];
   privilege       : IUser['privilege'];
   profileImageUrl : IUser['profileImageUrl'];
 }
 
 const UserSchema: Schema = new Schema({
-  age             : { type: Number, required: true},
   email           : { type: String, required: true, unique: true },
   password        : { type: String, required: true },
   privilege       : { type: Number, required: true },

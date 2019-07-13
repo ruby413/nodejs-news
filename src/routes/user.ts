@@ -34,7 +34,6 @@ userRouter.put('/:id', async (req: Request, res: Response, next) => {
   try {
     const user = await UserController.PutUserByObjectId({
       _id: req.params.id,
-      age: req.body.age,
       email: req.body.email,
       password: req.body.password,
       privilege: req.body.privilege,
