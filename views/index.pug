@@ -1,14 +1,6 @@
 doctype html
 html
-  head
-    meta(charset='UTF-8')
-    title= title
-    meta(name='viewport' content='width=device-width, user-scalable=no')
-    meta(http-equiv='X-UA-Compatible' content='IE=edge')
-    link(rel='stylesheet' href='css/vendor/uikit.min.css')
-    link(rel='stylesheet' href='css/vendor/uikit-rtl.min.css')
-    link(rel='stylesheet' href='css/app.css')
-
+  include components/head.pug
   body
     include components/header.pug
     .container
@@ -16,10 +8,5 @@ html
     if !user
       include components/signinform.pug
 
-    script(src='js/vendor/uikit.min.js')
-    script(src='js/vendor/uikit-icons.min.js')
-    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')
-    script(type='module' src='js/elementloader.js')
-    include scripts/login.pug
-
-
+    include scripts/vendor.pug
+    script(type='module' src='js/auth.js')

@@ -16,14 +16,14 @@ authRouter.get('/signup', isNotLoggedIn, async (req: Request, res: Response, nex
 });
 
 authRouter.post('/signup', isNotLoggedIn,  async (req: Request, res: Response, next: NextFunction) => {
-  const { email, password, age } = req.body;
+  const { email, password } = req.body;
   try {
     const exUser = await userController.GetUserByQuery({ email });
     if (exUser) {
       return res.send({message: '이미 가입된 이메일입니다.'});
     }
     const hash = await bcrypt.hash(password, 12);
-    await userController.CreateUser({ email, password: hash, age});
+    await userController.CreateUser({ email, password: hash});
     return res.redirect('/');
   } catch (error) {
     next(createError(409));

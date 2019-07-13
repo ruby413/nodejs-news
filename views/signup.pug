@@ -1,0 +1,9 @@
+doctype html
+html
+  include components/head.pug
+  body
+    .big-logo.uk-position-top.uk-text-center TechNews
+    include components/signupform.pug
+
+    include scripts/vendor.pug
+    script(type='module' src='/js/signup.js')

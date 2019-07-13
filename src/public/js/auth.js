@@ -1,7 +1,6 @@
 import { sendData, validateEmail, setEventIfElementExist } from './util.js';
 const signInButton = document.getElementById('signin-btn');
 const signOutButton = document.getElementById('signout-btn');
-const signUpButton = document.getElementById('signup-btn');
 const signInIdInput = document.getElementById('signin-id-input');
 const signInPasswordInput = document.getElementById('signin-password-input');
 const signUpIdInput = document.getElementById('signup-id-input')
@@ -15,7 +14,7 @@ setEventIfElementExist(signInButton, 'click', async e => {
   const password = signInPasswordInput.value;
 
   if (!validateEmail(email)) {
-    alert('이메일 형식이 맞지 않습니다.');
+    UIkit.notification('이메일 형식이 맞지 않습니다.', {status: 'danger'});
     signInIdInput.value = '';
     signInIdInput.focus;
     return;
