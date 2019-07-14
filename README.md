@@ -1,12 +1,12 @@
 <h1 align="center">Vote your choice! :checkered_flag: </h1>
 
-> Node.js 의 Express 프레임워크를 이용해 구현하는 Vote Your Choice!
+> Node.js 의 Express 프레임워크, pug, mongoDB/mongoose 를 이용해 구현하는 Vote Your Choice!
 
 <br>
 
 ## :memo: Description
 
-![DEMO](./images/demo_img.png)
+<center><img src="./images/demo_img.png" alt="DEMO image"></center>
 
 Node.js 의 Express 프레임워크를 이용한 사이트입니다.  
 관리자가 투표(양자택일) 를 개시하면 사용자는 투표를 할 수 있고, **다수의 선택을 맞추는 사용자가 승리하는 게임**입니다.  
