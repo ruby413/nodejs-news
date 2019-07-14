@@ -1,4 +1,4 @@
-import { sendData, validateEmail, validatePassword, setEventIfElementExist } from './util.js';
+import { sendData, setEventIfElementExist, validateEmail, validatePassword } from './util.js';
 const signUpButton = document.getElementById('signup-btn');
 const emailInput = document.getElementById('email-input');
 const passwordInput = document.getElementById('password-input');
@@ -39,15 +39,14 @@ setEventIfElementExist(signUpButton, 'click', async e => {
 
     if (res.redirected) {
       location.href = res.url;
+    } else {
+      const resBody = await res.json();
+      UIkit.notification(resBody.message || '서버에서 오류가 발생했습니다.', {status: 'danger'});
+      signUpButton.setAttribute('disabled', 'false');
     }
-
-    const resBody = await res.json();
-    UIkit.notification(resBody.message || '예기치 않은 오류가 발생했습니다.', {status: 'danger'});
-    signUpButton.setAttribute('disabled', 'false');
-
   } catch (error) {
     console.error(error);
-    UIkit.notification('비밀번호를 다시 확인해주세요', {status: 'danger'});
+    UIkit.notification('예기치 않은 오류가 발생했습니다.', {status: 'danger'});
     signUpButton.setAttribute('disabled', 'false');
   }
 });
