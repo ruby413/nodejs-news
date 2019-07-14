@@ -1,19 +1,20 @@
-import cookieParser from 'cookie-parser';
-import express from 'express';
-import session from 'express-session';
 import flash from 'connect-flash';
-import createError from 'http-errors';
 import mongo from 'connect-mongo';
-import passport from 'passport';
+import cookieParser from 'cookie-parser';
+import express, { NextFunction, Request, Response } from 'express';
+import session from 'express-session';
+import createError from 'http-errors';
 import logger from 'morgan';
+import passport from 'passport';
 import path from 'path';
+import { passportConfig } from './config/passport';
 import connect from './connect';
-import { MONGODB_URI, SESSION_SECRET } from './util/secrets';
-
+import authRouter from './routes/auth';
 import homeRouter from './routes/home';
 import userRouter from './routes/user';
-import authRouter from './routes/auth';
-import { passportConfig } from './config/passport';
+import { addHours } from './util/datehelper';
+import { MONGODB_URI, SESSION_SECRET } from './util/secrets';
+
 
 const MongoStore = mongo(session);
 const mongoUrl = MONGODB_URI;
@@ -23,7 +24,7 @@ passportConfig(passport);
 
 const app = express();
 
-app.set('views', path.join(__dirname, '../views'));
+app.set('views', path.join(__dirname, '../../views'));
 app.set('view engine', 'pug');
 
 app.use(logger('dev'));
@@ -39,10 +40,17 @@ app.use(session({
     autoReconnect: true
   })
 }));
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+  req.session.cookie.expires = addHours(24);
+  req.session.cookie.maxAge = 3600000 * 24;
+  next();
+});
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '../src/public')));
+app.use(express.static(path.join(__dirname, '../../src/public')));
 
 app.use('/', homeRouter);
 app.use('/user', userRouter);
