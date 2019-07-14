@@ -4,7 +4,7 @@
 
 ## :memo: Description
 
-![DEMO](./images/demo_img.png)
+<center>![DEMO](./images/demo_img.png)</center>
 
 Node.js 의 Express 프레임워크를 이용한 사이트입니다.  
 관리자가 투표(양자택일) 를 개시하면 사용자는 투표를 할 수 있고, 다수의 선택을 맞추는 사용자가 승리하는 게임입니다.  
@@ -65,16 +65,19 @@ Node.js 의 Express 프레임워크를 이용한 사이트입니다.
 ## :desktop_computer: DataBase Structure
 
 **User Collection**
-|고유값|토큰|아이디|비밀번호|점수|등수|
-|:---:|:---:|:---:|:---:|:---:|:---:|
-|\_id|user_token|user_id|user_password|user_score|user_ranking
+
+| 고유값 |    토큰    | 아이디  |   비밀번호    |    점수    |     등수     |
+| :----: | :--------: | :-----: | :-----------: | :--------: | :----------: |
+|  \_id  | user_token | user_id | user_password | user_score | user_ranking |
 
 **Post Collection**
-|고유값|제목|선택1|선택2|득표수1|득표수2|참여자수|작성자|작성일|수정자|수정일|
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|\_id|post_title|first_choice|second_choice|first_count|second_count|voting_participant|create_id|create_date|update_id|update_date|
+
+| 고유값 |    제목    |    선택1     |     선택2     |   득표수1   |   득표수2    |      참여자수      |  작성자   |   작성일    |  수정자   |   수정일    |
+| :----: | :--------: | :----------: | :-----------: | :---------: | :----------: | :----------------: | :-------: | :---------: | :-------: | :---------: |
+|  \_id  | post_title | first_choice | second_choice | first_count | second_count | voting_participant | create_id | create_date | update_id | update_date |
 
 **Comment Collection**
-|고유값|내용|작성자|작성일|수정자|수정일|
-|:---:|:---:|:---:|:---:|:---:|:---:|
-|\_id|comment_content|create_id|create_date|update_id|update_date|
+
+| 고유값 |      내용       |  작성자   |   작성일    |  수정자   |   수정일    |
+| :----: | :-------------: | :-------: | :---------: | :-------: | :---------: |
+|  \_id  | comment_content | create_id | create_date | update_id | update_date |
