@@ -6,7 +6,7 @@
 
 ## :memo: Description
 
-<center><img src="./images/demo_img.png" alt="DEMO image"></center>
+<img src="./images/demo_img.png" alt="DEMO image" align="center">
 
 Node.js 의 Express 프레임워크를 이용한 사이트입니다.  
 관리자가 투표(양자택일) 를 개시하면 사용자는 투표를 할 수 있고, **다수의 선택을 맞추는 사용자가 승리하는 게임**입니다.  
