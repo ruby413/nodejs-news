@@ -1,8 +1,8 @@
-import { Request, Response, NextFunction, Router } from 'express';
-import createError from 'http-errors';
 import bcrypt from 'bcrypt';
-import { isNotLoggedIn, isLoggedIn } from '../middlewares/auth';
+import { NextFunction, Request, Response, Router } from 'express';
+import createError from 'http-errors';
 import userController from '../controllers/user';
+import { isLoggedIn, isNotLoggedIn } from '../middlewares/auth';
 import passport = require('passport');
 
 const authRouter = Router();
@@ -48,11 +48,17 @@ authRouter.post('/signin', isNotLoggedIn, async (req: Request, res: Response, ne
   })(req, res, next);
 });
 
-authRouter.post('/signout', isLoggedIn, (req, res, next) => {
+authRouter.post('/signout', isLoggedIn, (req: Request, res: Response, next: NextFunction) => {
   try {
+    let destroyResult;
     req.logout();
-    req.session.destroy((err) => next(err));
-    res.redirect('/');
+    req.session.destroy(err => destroyResult = err);
+
+    if (destroyResult) {
+      throw destroyResult;
+    }
+
+    return res.redirect('/');
   } catch (err) {
     next(err);
   }
