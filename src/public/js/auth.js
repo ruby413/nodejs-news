@@ -1,4 +1,4 @@
-import { sendData, validateEmail, setEventIfElementExist } from './util.js';
+import { sendData, setEventIfElementExist, validateEmail } from './util.js';
 const signInButton = document.getElementById('signin-btn');
 const signOutButton = document.getElementById('signout-btn');
 const signInIdInput = document.getElementById('signin-id-input');
@@ -22,7 +22,6 @@ setEventIfElementExist(signInButton, 'click', async e => {
 
   if (!password){
     signInPasswordInput.focus;
-    // alert('최소 한 글자의 대소문자와 특수문자를 포함하면서, 여덟 글자 이상이어야 합니다.');
     return;
   }
 
@@ -33,6 +32,12 @@ setEventIfElementExist(signInButton, 'click', async e => {
 
     if (res.redirected) {
       location.href = res.url;
+    } else {
+      const resBody = await res.json();
+      console.log(resBody);
+      UIkit.notification(resBody.message || '서버에서 오류가 발생했습니다.', {status: 'danger'});
+      signInPasswordInput.value = '';
+      signInPasswordInput.focus;
     }
 
   } catch (error) {

@@ -35,7 +35,18 @@ body {
 }
 
 .shadow-border {
-  box-shadow: 13px 32px 36px -14px hsla(0, 0%, 80%, 0.50);
+  box-shadow: 0px 0px 15px 10px hsla(0, 0%, 80%, 0.50);
   border-radius: 5px;
   transition: .3s ease-in;
+}
+
+#signup-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  margin: auto;
+  padding: 30px;
+  background-color: white;
 }
