@@ -1,0 +1,12 @@
+doctype html
+html
+  include components/head.pug
+  body
+    include components/header.pug
+    .container
+
+    if !user
+      include components/signinform.pug
+
+    include scripts/vendor.pug
+    script(type='module' src='js/auth.js')
